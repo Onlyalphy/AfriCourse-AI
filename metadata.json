@@ -1,0 +1,8 @@
+{
+  "name": "AfriCourse AI",
+  "description": "A transformative education platform providing high-accuracy crash courses and video explanations tailored for marginalized regions in Africa, bridging the information gap with grounded AI.",
+  "requestFramePermissions": [
+    "camera",
+    "microphone"
+  ]
+}

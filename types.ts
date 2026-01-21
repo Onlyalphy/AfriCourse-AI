@@ -20,9 +20,17 @@ export interface CertifiedPathway {
   roadmap: { year: number; semesters: string[] }[];
 }
 
+export interface SavedCourse {
+  id: string;
+  content: CourseContent;
+  savedAt: number;
+  depth: LearningDepth;
+}
+
 export type LearningDepth = 'express' | 'standard' | 'deep' | 'certified';
-export type AppTheme = 'blue' | 'black' | 'orange' | 'green';
+export type AppTheme = 'blue' | 'black' | 'orange' | 'green' | 'red';
 export type VideoOrientation = '16:9' | '9:16';
+export type VideoResolution = '720p' | '1080p';
 
 export interface ChatMessage {
   role: 'user' | 'model';
@@ -45,5 +53,7 @@ export interface AppState {
   chatMessages: ChatMessage[];
   isChatLoading: boolean;
   videoOrientation: VideoOrientation;
+  videoResolution: VideoResolution;
   isExpandingLesson: number | null;
+  savedCourses: SavedCourse[];
 }

@@ -1,6 +1,6 @@
 
 import { GoogleGenAI, Type, Modality, GenerateContentResponse } from "@google/genai";
-import { CourseContent, LearningDepth, VideoOrientation, CertifiedPathway } from "../types";
+import { CourseContent, LearningDepth, VideoOrientation, VideoResolution, CertifiedPathway } from "../types";
 
 const COMPLEX_MODEL = "gemini-3-pro-preview";
 const VEO_MODEL = "veo-3.1-fast-generate-preview";
@@ -133,13 +133,17 @@ export const chatWithGemini = async (message: string, history: any[]): Promise<s
   return result.text || "I'm sorry, I couldn't process that.";
 };
 
-export const generateCourseVideo = async (topic: string, lessonTitle: string, orientation: VideoOrientation): Promise<string> => {
+export const generateCourseVideo = async (topic: string, lessonTitle: string, orientation: VideoOrientation, resolution: VideoResolution): Promise<string> => {
   if (!(await (window as any).aistudio.hasSelectedApiKey())) await (window as any).aistudio.openSelectKey();
   const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
   let operation = await ai.models.generateVideos({
     model: VEO_MODEL,
-    prompt: `Clean 2D animated educational explanation of "${lessonTitle}" for "${topic}".`,
-    config: { numberOfVideos: 1, resolution: '720p', aspectRatio: orientation }
+    prompt: `Clean 2D animated educational explanation of "${lessonTitle}" for "${topic}". High quality visuals.`,
+    config: { 
+      numberOfVideos: 1, 
+      resolution: resolution, 
+      aspectRatio: orientation 
+    }
   });
   while (!operation.done) {
     await new Promise(resolve => setTimeout(resolve, 10000));
